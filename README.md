@@ -15,3 +15,5 @@ python3 -m playwright install
 Start/Close venv
 source venv/bin/activate
 deactivate
+
+scrapy crawl abcam -O abcam.json

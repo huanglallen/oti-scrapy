@@ -18,7 +18,7 @@ class AbcamSpider(scrapy.Spider):
 
     async def parse(self, response):
         page = response.meta["playwright_page"]
-        await page.close()  # Close the browser page after rendering
+        await page.close()
 
         product_links = response.css('p.font-bold > a::attr(href)').getall()
 
@@ -28,28 +28,60 @@ class AbcamSpider(scrapy.Spider):
                 name = response.css(f'a[href="{link}"]::text').get().strip()
                 yield scrapy.Request(
                     url,
-                    meta={"playwright": True, "playwright_include_page": True, "name": name},
+                    meta={
+                        "playwright": True,
+                        "playwright_include_page": True,
+                        "name": name
+                    },
                     callback=self.parse_product
                 )
 
     async def parse_product(self, response):
         page = response.meta["playwright_page"]
-        await page.close()
-
         name = response.meta["name"]
 
-        # Extract price from <div data-testid="base-price"><span>...</span></div>
-        price = response.css('div[data-testid="base-price"] > span::text').get()
+        size = "N/A"
+        price = "N/A"
 
-        # Extract size from the first <div data-cy="size-button-content">
-        size = response.css('div[data-cy="size-button-content"]::text').get()
+        try:
+            await page.wait_for_selector('div.sizes-box_sizeList__Kr6Gg', timeout=10000)
+            wrappers = await page.query_selector_all('div.sizes-box_sizeList__Kr6Gg > div')
 
-        # Extract purity from <div data-testid="purity"><dd>...</dd></div>
-        purity = response.css('div[data-testid="purity"] dd::text').get()
+            if wrappers:
+                button = await wrappers[0].query_selector('button')
+                if button:
+                    await button.click()
+                    await page.wait_for_timeout(1000)
+                    await page.wait_for_selector('div[data-cy="size-button-content"]', timeout=5000)
+                    await page.wait_for_selector('div[data-testid="base-price"] span', timeout=5000)
 
-        yield {
+                    content = await page.content()
+                    new_response = response.replace(body=content)
+
+                    size = new_response.css('div[data-cy="size-button-content"]::text').get()
+                    price = new_response.css('div[data-testid="base-price"] > span::text').get()
+
+                    size = size.strip() if size else "N/A"
+                    price = price.strip() if price else "N/A"
+
+                    self.logger.info(f"[{name}] Size: {size}, Price: {price}")
+        except Exception as e:
+            self.logger.warning(f"[{name}] Failed to extract size/price: {e}")
+
+        # Extract purity
+        try:
+            await page.wait_for_selector('div[data-testid="purity"] dd', timeout=5000)
+            purity_el = await page.query_selector('div[data-testid="purity"] dd')
+            purity = await purity_el.inner_text() if purity_el else None
+        except:
+            purity = None
+
+        await page.close()
+
+        item = {
             'name': name,
-            'price': price.strip() if price else 'N/A',
-            'size': size.strip() if size else 'N/A',
+            'sizes': size,
+            'prices': price,
             'purity': purity.strip() if purity else 'N/A',
         }
+        yield item
