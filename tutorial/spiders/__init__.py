@@ -42,6 +42,10 @@ class AbcamSpider(scrapy.Spider):
 
         size = "N/A"
         price = "N/A"
+        purity = "N/A"
+        expression_system = "N/A"
+        applications = "N/A"
+        endotoxin_level = "N/A"
 
         try:
             await page.wait_for_selector('div.sizes-box_sizeList__Kr6Gg', timeout=10000)
@@ -58,30 +62,38 @@ class AbcamSpider(scrapy.Spider):
                     content = await page.content()
                     new_response = response.replace(body=content)
 
-                    size = new_response.css('div[data-cy="size-button-content"]::text').get()
-                    price = new_response.css('div[data-testid="base-price"] > span::text').get()
+                    size = new_response.css('div[data-cy="size-button-content"]::text').get() or "N/A"
+                    price = new_response.css('div[data-testid="base-price"] > span::text').get() or "N/A"
 
-                    size = size.strip() if size else "N/A"
-                    price = price.strip() if price else "N/A"
+                    size = size.strip()
+                    price = price.strip()
 
                     self.logger.info(f"[{name}] Size: {size}, Price: {price}")
         except Exception as e:
             self.logger.warning(f"[{name}] Failed to extract size/price: {e}")
 
-        # Extract purity
-        try:
-            await page.wait_for_selector('div[data-testid="purity"] dd', timeout=5000)
-            purity_el = await page.query_selector('div[data-testid="purity"] dd')
-            purity = await purity_el.inner_text() if purity_el else None
-        except:
-            purity = None
+        # Extract other metadata
+        async def extract_text(selector):
+            try:
+                await page.wait_for_selector(f'div[data-testid="{selector}"] dd', timeout=3000)
+                el = await page.query_selector(f'div[data-testid="{selector}"] dd')
+                return (await el.inner_text()).strip() if el else "N/A"
+            except:
+                return "N/A"
+
+        expression_system = await extract_text("expression-system")
+        purity = await extract_text("purity")
+        endotoxin_level = await extract_text("endotoxin-level")
+        applications = await extract_text("applications")
 
         await page.close()
 
-        item = {
+        yield {
             'name': name,
+            'expression_system': expression_system,
+            'purity': purity,
+            'endotoxin_level': endotoxin_level,
             'sizes': size,
             'prices': price,
-            'purity': purity.strip() if purity else 'N/A',
+            'applications': applications,
         }
-        yield item
