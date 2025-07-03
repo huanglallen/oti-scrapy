@@ -19,17 +19,14 @@ class AbcamSpider(scrapy.Spider):
     async def parse(self, response):
         page = response.meta["playwright_page"]
 
-        # Extract product links on the current page
+        # Extract product links
         product_links = response.css('p.font-bold > a::attr(href)').getall()
 
         for link in product_links:
             if link.startswith('/en-us/products/proteins-peptides'):
                 url = response.urljoin(link)
                 name = response.css(f'a[href="{link}"]::text').get()
-                if name:
-                    name = name.strip()
-                else:
-                    name = "N/A"
+                name = name.strip() if name else "N/A"
                 yield scrapy.Request(
                     url,
                     meta={
@@ -40,24 +37,22 @@ class AbcamSpider(scrapy.Spider):
                     callback=self.parse_product
                 )
 
-        # Pagination: Find the next page URL and yield request if it exists
+        # Handle pagination reliably
         next_page = response.css('a.pagination__next::attr(href)').get()
         if next_page:
-            next_page_url = response.urljoin(next_page)
-            await page.close()
-            yield scrapy.Request(
-                next_page_url,
+            yield response.follow(
+                next_page,
+                callback=self.parse,
                 meta={"playwright": True, "playwright_include_page": True},
-                callback=self.parse
+                dont_filter=True  # force Scrapy to follow all pages
             )
-        else:
-            await page.close()
+
+        await page.close()
 
     async def parse_product(self, response):
         page = response.meta["playwright_page"]
         name = response.meta["name"]
 
-        # Utility async function to extract text safely with timeout
         async def extract_text(selector):
             try:
                 await page.wait_for_selector(f'div[data-testid="{selector}"] dd', timeout=10000)
@@ -66,16 +61,15 @@ class AbcamSpider(scrapy.Spider):
             except:
                 return "N/A"
 
-        # Wait for size and price selectors to load before extracting
+        size = price = "N/A"
         try:
-            await page.wait_for_selector('div.sizes-box_sizeList__Kr6Gg', timeout=20000)
+            await page.wait_for_selector('div.sizes-box_sizeList__Kr6Gg', timeout=30000)
             size_el = await page.query_selector('div[data-cy="size-button-content"]')
             price_el = await page.query_selector('div[data-testid="base-price"] > span')
             size = (await size_el.inner_text()).strip() if size_el else "N/A"
             price = (await price_el.inner_text()).strip() if price_el else "N/A"
-        except Exception:
-            size = "N/A"
-            price = "N/A"
+        except Exception as e:
+            self.logger.warning(f"[{name}] Size/price fetch failed: {e}")
 
         expression_system = await extract_text("expression-system")
         purity = await extract_text("purity")

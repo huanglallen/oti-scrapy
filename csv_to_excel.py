@@ -20,4 +20,5 @@ for col in ws.columns:
             max_length = max(max_length, len(str(cell.value)))
     ws.column_dimensions[column_letter].width = max_length + 2  # padding
 
+print("output file created!")
 wb.save(excel_path)
