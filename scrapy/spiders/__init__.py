@@ -18,14 +18,18 @@ class AbcamSpider(scrapy.Spider):
 
     async def parse(self, response):
         page = response.meta["playwright_page"]
-        await page.close()
 
+        # Extract product links on the current page
         product_links = response.css('p.font-bold > a::attr(href)').getall()
 
         for link in product_links:
             if link.startswith('/en-us/products/proteins-peptides'):
                 url = response.urljoin(link)
-                name = response.css(f'a[href="{link}"]::text').get().strip()
+                name = response.css(f'a[href="{link}"]::text').get()
+                if name:
+                    name = name.strip()
+                else:
+                    name = "N/A"
                 yield scrapy.Request(
                     url,
                     meta={
@@ -36,50 +40,42 @@ class AbcamSpider(scrapy.Spider):
                     callback=self.parse_product
                 )
 
+        # Pagination: Find the next page URL and yield request if it exists
+        next_page = response.css('a.pagination__next::attr(href)').get()
+        if next_page:
+            next_page_url = response.urljoin(next_page)
+            await page.close()
+            yield scrapy.Request(
+                next_page_url,
+                meta={"playwright": True, "playwright_include_page": True},
+                callback=self.parse
+            )
+        else:
+            await page.close()
+
     async def parse_product(self, response):
         page = response.meta["playwright_page"]
         name = response.meta["name"]
 
-        size = "N/A"
-        price = "N/A"
-        purity = "N/A"
-        expression_system = "N/A"
-        applications = "N/A"
-        endotoxin_level = "N/A"
-
-        try:
-            await page.wait_for_selector('div.sizes-box_sizeList__Kr6Gg', timeout=10000)
-            wrappers = await page.query_selector_all('div.sizes-box_sizeList__Kr6Gg > div')
-
-            if wrappers:
-                button = await wrappers[0].query_selector('button')
-                if button:
-                    await button.click()
-                    await page.wait_for_timeout(1000)
-                    await page.wait_for_selector('div[data-cy="size-button-content"]', timeout=5000)
-                    await page.wait_for_selector('div[data-testid="base-price"] span', timeout=5000)
-
-                    content = await page.content()
-                    new_response = response.replace(body=content)
-
-                    size = new_response.css('div[data-cy="size-button-content"]::text').get() or "N/A"
-                    price = new_response.css('div[data-testid="base-price"] > span::text').get() or "N/A"
-
-                    size = size.strip()
-                    price = price.strip()
-
-                    self.logger.info(f"[{name}] Size: {size}, Price: {price}")
-        except Exception as e:
-            self.logger.warning(f"[{name}] Failed to extract size/price: {e}")
-
-        # Extract other metadata
+        # Utility async function to extract text safely with timeout
         async def extract_text(selector):
             try:
-                await page.wait_for_selector(f'div[data-testid="{selector}"] dd', timeout=3000)
+                await page.wait_for_selector(f'div[data-testid="{selector}"] dd', timeout=10000)
                 el = await page.query_selector(f'div[data-testid="{selector}"] dd')
                 return (await el.inner_text()).strip() if el else "N/A"
             except:
                 return "N/A"
+
+        # Wait for size and price selectors to load before extracting
+        try:
+            await page.wait_for_selector('div.sizes-box_sizeList__Kr6Gg', timeout=20000)
+            size_el = await page.query_selector('div[data-cy="size-button-content"]')
+            price_el = await page.query_selector('div[data-testid="base-price"] > span')
+            size = (await size_el.inner_text()).strip() if size_el else "N/A"
+            price = (await price_el.inner_text()).strip() if price_el else "N/A"
+        except Exception:
+            size = "N/A"
+            price = "N/A"
 
         expression_system = await extract_text("expression-system")
         purity = await extract_text("purity")
