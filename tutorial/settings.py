@@ -31,8 +31,15 @@ DEFAULT_REQUEST_HEADERS = {
     "Sec-Fetch-Site": "none",
     "Sec-Fetch-User": "?1"
 }
-DOWNLOAD_TIMEOUT = 30
+DOWNLOAD_TIMEOUT = 600
 DOWNLOAD_DELAY = 1.5
+# Prevent early closure due to inactivity
+CLOSESPIDER_TIMEOUT = 0  # no auto-close timeout
+CLOSESPIDER_PAGECOUNT = 0  # no limit on page count
+
+# Optional: limit concurrency to avoid overloading
+CONCURRENT_REQUESTS = 4
+PLAYWRIGHT_DEFAULT_NAVIGATION_TIMEOUT = 60000  # 60 seconds
 
 #playwright tags
 DOWNLOAD_HANDLERS = {
@@ -116,5 +123,4 @@ PLAYWRIGHT_LAUNCH_OPTIONS = {
 
 # Set settings whose default value is deprecated to a future-proof value
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
-TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"

@@ -1,4 +1,5 @@
 import scrapy
+from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 
 class AbcamSpider(scrapy.Spider):
     name = 'abcam'
@@ -12,15 +13,23 @@ class AbcamSpider(scrapy.Spider):
         for url in self.start_urls:
             yield scrapy.Request(
                 url,
-                meta={"playwright": True, "playwright_include_page": True},
+                meta={"playwright": True, "playwright_include_page": True, "page_num": 1},
                 callback=self.parse
             )
 
     async def parse(self, response):
         page = response.meta["playwright_page"]
+        current_page_num = response.meta.get("page_num", 1)
+
+        self.logger.info(f"Scraping page {current_page_num}: {response.url}")
 
         # Extract product links
         product_links = response.css('p.font-bold > a::attr(href)').getall()
+
+        if not product_links:
+            self.logger.info(f"No products found on page {current_page_num}, stopping crawl.")
+            await page.close()
+            return
 
         for link in product_links:
             if link.startswith('/en-us/products/proteins-peptides'):
@@ -37,15 +46,25 @@ class AbcamSpider(scrapy.Spider):
                     callback=self.parse_product
                 )
 
-        # Handle pagination reliably
-        next_page = response.css('a.pagination__next::attr(href)').get()
-        if next_page:
-            yield response.follow(
-                next_page,
-                callback=self.parse,
-                meta={"playwright": True, "playwright_include_page": True},
-                dont_filter=True  # force Scrapy to follow all pages
-            )
+        # Increment page number manually
+        next_page_num = current_page_num + 1
+
+        # Construct next page URL by updating ?page= param
+        parsed_url = urlparse(response.url)
+        query_params = parse_qs(parsed_url.query)
+        query_params['page'] = [str(next_page_num)]
+        new_query = urlencode(query_params, doseq=True)
+        next_page_url = urlunparse(parsed_url._replace(query=new_query))
+
+        self.logger.info(f"Going to next page: {next_page_url}")
+
+        # Yield next page request with updated page number
+        yield scrapy.Request(
+            next_page_url,
+            meta={"playwright": True, "playwright_include_page": True, "page_num": next_page_num},
+            callback=self.parse,
+            dont_filter=True,
+        )
 
         await page.close()
 
@@ -61,15 +80,15 @@ class AbcamSpider(scrapy.Spider):
             except:
                 return "N/A"
 
-        size = price = "N/A"
         try:
-            await page.wait_for_selector('div.sizes-box_sizeList__Kr6Gg', timeout=30000)
+            await page.wait_for_selector('div.sizes-box_sizeList__Kr6Gg', timeout=20000)
             size_el = await page.query_selector('div[data-cy="size-button-content"]')
             price_el = await page.query_selector('div[data-testid="base-price"] > span')
             size = (await size_el.inner_text()).strip() if size_el else "N/A"
             price = (await price_el.inner_text()).strip() if price_el else "N/A"
-        except Exception as e:
-            self.logger.warning(f"[{name}] Size/price fetch failed: {e}")
+        except Exception:
+            size = "N/A"
+            price = "N/A"
 
         expression_system = await extract_text("expression-system")
         purity = await extract_text("purity")
