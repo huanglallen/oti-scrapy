@@ -1,0 +1,158 @@
+catalog_no,name,sizes,prices,purity,endotoxin_level,expression_system
+Z02730,"Angiostatin K1-3, Human",10 μg/50 μg,$74.00/$155.00,> 95% as analyzed by SDS-PAGE/> 95% as analyzed by HPLC,< 1 EU/μg of protein by LAL method,E. coli
+Z03072,"Adiponectin/Acrp30, Human",10 μg/50 μg/1 mg,$79.00/$225.00/$2340.00,> 95% as analyzed by SDS-PAGE,< 0.2 EU/μg of protein by gel clotting method,HEK 293
+Z02969,"April, Mouse",10 μg/50 μg/1 mg,$79.00/$170.00/$1365.00,> 95% as analyzed by SDS-PAGE/> 95% as analyzed by HPLC,< 0.2 EU/μg of protein by gel clotting method,E. coli
+Z04389,"Activin RIIA/ACVR2A hFc Chimera[Biotin], Avi,Human/Cynomolgus",,,Biotin,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,"Measured by its binding ability in a functional ELISA. Immobilized Human Activin A, No Tag at 1μg/ml (100μl/well) on the plate can bind Activin RIIA/ACVR2A hFc Chimera[Biotin], Avi,Human/Cynomolgus. Test result was comparable to standard batch."
+Z04403,"ASGR1[Biotin], His & Avi, Human",100 μg/500 μg,$660.00/$2190.00,Biotin,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,HEK293
+Z04404,"AXL[Biotin], His & Avi, Human",,,Biotin,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,"Measured by its binding ability in a functional ELISA. Immobilized AXL[Biotin], His & Avi, Human at 2μg/ml (100μl/well) on the streptavidin precoated plate (5μg/ml) can bind Anti­AXL Antibody, hFc Tag. Test result was comparable to standard batch."
+Z03098,"AITRL, Mouse",10 μg/50 μg/1 mg,$79.00/$260.00/$2340.00,> 95% as analyzed by SDS-PAGE/> 95% as analyzed by HPLC,< 0.2 EU/μg of protein by gel clotting method,E. coli
+Z04733,"ANXA1, His, Cynomolgus",,,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,39.69 kDa
+Z04731,"ANGPTL3/Angiopoietin-like 3, His, Cynomolgus",100 μg/500 μg,$390.00/$1310.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,HEK293
+Z04732,"ANGPTL4/Angiopoietin-like 4, His, Cynomolgus",100 μg/500 μg,$390.00/$1310.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,28.46 kDa
+Z04730,"AMIGO2, His, Cynomolgus",100 μg/500 μg,$390.00/$1310.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,41.97 kDa
+Z04729,"Alkaline Phosphatase (Placental type) /ALPP, His, Cynomolgus",100 μg/500 μg,$390.00/$1310.00,> 95% as determined by Bis-Tris PAGE,Less than 1EU per μg by the LAL method.,HEK293
+Z04994,"ADAM9, His, Human",,,> 95% as determined by Bis-Tris PAGE,Less than 1EU per μg by the LAL method.,HEK293
+Z04993,"ADAM8, His, Human",100 μg/500 μg,$370.00/$1250.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,HEK293
+Z04992,"ACVR1B/Activin RIB, His, Human",100 μg/500 μg,$340.00/$1120.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,12.51 kDa
+Z04991,"ACVR1/Activin RI hFc Chimera, Human",100 μg/500 μg,$390.00/$1310.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,37.43 kDa
+Z05009,"Alkaline Phosphatase (Germ type)/ALPG, His, Human",,,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,HEK293
+Z05008,"Alkaline Phosphatase (Germ type) /ALPG hFc Chimera, Human",100 μg/500 μg,$390.00/$1310.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,HEK293
+Z05007,"Alkaline Phosphatase (Germ type) /ALPG mFc Chimera, Human",100 μg/500 μg,$390.00/$1310.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,HEK293
+Z05006,"ALK-7/Activin RIC, His, Human",100 μg/500 μg,$340.00/$1120.00,> 95% as determined by Bis­Tris PAGE,Less than 1EU per μg by the LAL method.,HEK293
+Z05024,"ANGPTL7/CDT6, His & Avi, Human",,,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,40.2 kDa
+Z05023,"ANGPTL7/CDT6 hFc Chimera, Human",100 μg/500 μg,$390.00/$1310.00,> 95% as determined by Bis-Tris PAGE,Less than 1EU per μg by the LAL method.,63.8 kDa
+Z05022,"ANGPTL4/Angiopoietin-like 4, His, Human",100 μg/500 μg,$240.00/$810.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,HEK293
+Z05021,"ANGPTL3/Angiopoietin-like 3, His & Avi, Human",100 μg/500 μg,$300.00/$1000.00,> 95% as determined by Bis-Tris PAGE,Less than 1EU per μg by the LAL method.,HEK293
+Z05039,"APOE4/Apolipoprotein E hFc Chimera, Human",,,> 95% as determined by Bis-Tris PAGE,Less than 1EU per μg by the LAL method.,61.6 kDa
+Z05038,"APOE4/Apolipoprotein E, His, Human",100 μg/500 μg,$340.00/$1120.00,> 95% as determined by Bis-Tris PAGE,Less than 1EU per μg by the LAL method.,HEK293
+Z05037,"APOE3/Apolipoprotein E, His, Human",100 μg/500 μg,$340.00/$1120.00,> 95% as determined by Bis­Tris PAGE/> 90% as determined by HPLC,Less than 1EU per μg by the LAL method.,HEK293
+Z05036,"APOE3/Apolipoprotein E hFc Chimera, Human",100 μg/500 μg,$340.00/$1120.00,> 95% as determined by Bis-Tris PAGE,Less than 1EU per μg by the LAL method.,HEK293
+Z05980,"AARS1, His, Mouse",,,> 95% as determined by Bis-Tris PAGE,Less than 1EU per μg by the LAL method.,108.43 kDa
+Z05975,"A35R, His, Monkeypox virus",100 μg/500 μg,$340.00/$1120.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,14.77 kDa
+Z05974,"A30, His, Monkeypox virus",100 μg/500 μg,$340.00/$1120.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,15.24 kDa
+Z05973,"A29, His, Monkeypox virus",100 μg/500 μg,$340.00/$1120.00,> 95% as determined by Bis-Tris PAGE,Less than 1EU per μg by the LAL method.,13.65 kDa
+Z05995,"Alkaline phosphatase (Intestinal type) /ALPI, His, Mouse",,,> 95% as determined by Bis-Tris PAGE,Less than 1EU per μg by the LAL method.,53.10 kDa
+Z05994,"Alkaline Phosphatase (Germ type) /ALPG, His, Mouse",100 μg/500 μg,$390.00/$1310.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,53.64 kDa
+Z05993,"ALK hFc Chimera, Mouse",100 μg/500 μg,$320.00/$1060.00,> 95% as determined by Bis­Tris PAGE,Less than 1EU per μg by the LAL method.,101.11 kDa
+Z05992,"ALCAM/CD166, His, Mouse",100 μg/500 μg,$160.00/$530.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,57.2 kDa
+Z06010,"APOE/Apolipo E, His, Mouse",,,> 95% as determined by Bis-Tris PAGE,Less than 1EU per μg by the LAL method.,35.1 kDa
+Z06009,"APOE/Apolipo E hFc Chimera, Mouse",100 μg/500 μg,$340.00/$1120.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,60.7 kDa
+Z06008,"APOA5, His, Mouse",100 μg/500 μg,$340.00/$1120.00,> 95% as determined by Bis-Tris PAGE,Less than 1EU per μg by the LAL method.,40.5 kDa
+Z06007,"APOA2 hFc Chimera, Mouse",100 μg/500 μg,$390.00/$1310.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,36.2 kDa
+Z06412,"Alkaline Phosphatase (Germ type) /ALPG, His, Rat",100 μg/500 μg,$390.00/$1310.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,54.10 kDa
+Z06018,"AXL, His, Mouse",100 μg/500 μg,$170.00/$560.00,> 95% as determined by Bis­Tris PAGE/> 95% as determined by HPLC,Less than 1EU per μg by the LAL method.,HEK293
+Z06017,"ASPH, His, Mouse",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z06016,"ASGR1, His, Mouse",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z06015,"ARTN hFc Chimera, Mouse",100 μg/500 μg,$370.00/$1250.00,N/A,N/A,N/A
+Z06014,"AREG hFc Chimera, Mouse",100 μg/500 μg,$370.00/$1250.00,N/A,N/A,N/A
+Z06013,"APRIL/TNFSF13 hFc Chimera, Mouse",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z06012,"APRIL/TNFSF13, His & Flag, Mouse",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z06011,"APOH, His, Mouse",100 μg/500 μg,$300.00/$1000.00,N/A,N/A,N/A
+Z06006,"APOA1 hFc Chimera, Mouse",100 μg/500 μg,$360.00/$1190.00,N/A,N/A,N/A
+Z06005,"APLN hFc Chimera, Mouse",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z06004,"APCDD1, His, Mouse",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z06003,"ANXA2, His, Mouse",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z06002,"ANXA1, His, Mouse",100 μg/500 μg,$300.00/$1000.00,N/A,N/A,N/A
+Z06001,"ANTXR2, His, Mouse",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z06000,"ANGPTL4/Angiopoietin-like 4, His, Mouse",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z05999,"ANGPTL3/Angiopoietin-like 3, His, Mouse",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z05998,"ANGPT2/Angiopoietin-2, His, Mouse",100 μg/500 μg,$470.00/$1560.00,N/A,N/A,N/A
+Z05997,"AMIGO2, His, Mouse",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z05996,"AMCase/CHIA, His, Mouse",100 μg/500 μg,$300.00/$1000.00,N/A,N/A,N/A
+Z05991,"AGR-2, His, Mouse",100 μg/500 μg,$410.00/$1370.00,N/A,N/A,N/A
+Z05990,"AGER, His, Mouse",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z05989,"AGER, His, Mouse",100 μg/500 μg,$320.00/$1060.00,N/A,N/A,N/A
+Z05988,"AFP, His, Mouse",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z05987,"Adiponectin/Acrp30 hFc Chimera, Mouse",100 μg/500 μg,$280.00/$940.00,N/A,N/A,N/A
+Z05986,"Adiponectin/Acrp30, His, Mouse",100 μg/500 μg,$280.00/$940.00,N/A,N/A,N/A
+Z05985,"ADAM9, His, Mouse",100 μg/500 μg,$370.00/$1250.00,N/A,N/A,N/A
+Z05984,"ADAM8, His, Mouse",100 μg/500 μg,$370.00/$1250.00,N/A,N/A,N/A
+Z05983,"Activin RIIB/ACVR2B, His, Mouse",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z05982,"Activin RIIA/ACVR2A, His, Mouse",100 μg/500 μg,$190.00/$620.00,N/A,N/A,N/A
+Z05981,"ACE2/ACEH, His, Mouse",100 μg/500 μg,$450.00/$1500.00,N/A,N/A,N/A
+Z05966,"AREG hFc Chimera, Human",100 μg/500 μg,$370.00/$1250.00,N/A,N/A,N/A
+Z05049,"Azurocidin/CAP37/AZU1/HBP, His, Human",100 μg/500 μg,$220.00/$750.00,N/A,N/A,N/A
+Z05048,"AXL, His & Avi, Human",100 μg/500 μg,$170.00/$560.00,N/A,N/A,N/A
+Z05047,"AXL hFc Chimera, Human",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z05046,"AXL, His, Human",100 μg/500 μg,$170.00/$560.00,N/A,N/A,N/A
+Z05045,"ASPH, His, Human",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z05044,"ASGR1, His, Human",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z05043,"ASGR1 hFc Chimera, Human",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z05042,"ARTN hFc Chimera, Human",100 μg/500 μg,$370.00/$1250.00,N/A,N/A,N/A
+Z05041,"APRIL/TNFSF13 Trimer, His & Flag, Human",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z05040,"APOH, His, Human",100 μg/500 μg,$300.00/$1000.00,N/A,N/A,N/A
+Z05035,"APOE2/Apolipoprotein E, His, Human",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z05034,"APOA2 hFc Chimera, Human",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z05033,"APOA1 hFc Chimera, Human",100 μg/500 μg,$360.00/$1190.00,N/A,N/A,N/A
+Z05032,"APLP2, His, Human",100 μg/500 μg,$320.00/$1060.00,N/A,N/A,N/A
+Z05031,"APLN hFc Chimera, Human",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z05030,"APCDD1, His, Human",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z05029,"APCDD1 hFc Chimera, Human",100 μg/500 μg,$370.00/$1250.00,N/A,N/A,N/A
+Z05028,"ANXA2, His, Human",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z05027,"ANXA1, His, Human",100 μg/500 μg,$300.00/$1000.00,N/A,N/A,N/A
+Z05026,"ANTXR2, His, Human",100 μg/500 μg,$370.00/$1250.00,N/A,N/A,N/A
+Z05025,"Annexin V/ANXA5, Human",100 μg/500 μg,$210.00/$690.00,N/A,N/A,N/A
+Z05020,"ANGPTL3/Angiopoietin-like 3, His, Human",100 μg/500 μg,$250.00/$840.00,N/A,N/A,N/A
+Z05019,"ANGPTL2/Angiopoietin-like 2, His & Avi, Human",100 μg/500 μg,$280.00/$940.00,N/A,N/A,N/A
+Z05018,"ANGPT2/Angiopoietin-2, His & Avi, Human",100 μg/500 μg,$250.00/$840.00,N/A,N/A,N/A
+Z05017,"AMIGO2, His, Human",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z05016,"AMHRII hFc Chimera, Human",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z05015,"AMHRII, Human",100 μg/500 μg,$430.00/$1440.00,N/A,N/A,N/A
+Z05014,"AMCase/CHIA, His, Human",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z05013,"ALPL, His, Human",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z05012,"Alpha Synuclein, Human",100 μg/500 μg,$90.00/$310.00,N/A,N/A,N/A
+Z05011,"Alkaline Phosphatase (Placental type)/ALPP, His, Human",100 μg/500 μg,$370.00/$1250.00,N/A,N/A,N/A
+Z05010,"Alkaline phosphatase (Intestinal type) /ALPI, His & Flag, Human",100 μg/500 μg,$470.00/$1560.00,N/A,N/A,N/A
+Z05005,"ALK-1/Activin RL1, His, Human",100 μg/500 μg,$300.00/$1000.00,N/A,N/A,N/A
+Z05004,"ALCAM/CD166, His, Human",100 μg/500 μg,$150.00/$500.00,N/A,N/A,N/A
+Z05003,"ALCAM/CD166 hFc Chimera, Human",100 μg/500 μg,$170.00/$560.00,N/A,N/A,N/A
+Z05002,"AKT2, His & GST, Human",100 μg/500 μg,$370.00/$1250.00,N/A,N/A,N/A
+Z05001,"AGR-2, His, Human",100 μg/500 μg,$410.00/$1370.00,N/A,N/A,N/A
+Z05000,"Aggrecan, His, Human",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z04999,"AGER, His, Human",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z04998,"AFP, His, Human",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z04997,"Adiponectin/Acrp30, His, Human",100 μg/500 μg,$280.00/$940.00,N/A,N/A,N/A
+Z04996,"Adiponectin/Acrp30 hFc Chimera, Human",100 μg/500 μg,$280.00/$940.00,N/A,N/A,N/A
+Z04995,"Adenylosuccinate Lyase, His, Human",100 μg/500 μg,$370.00/$1250.00,N/A,N/A,N/A
+Z04990,"Activin RIIB/ACVR2B, His, Human/Cynomolgus",100 μg/500 μg,$190.00/$620.00,N/A,N/A,N/A
+Z04989,"Activin RIIB/ACVR2B mFc Chimera, Human/Cynomolgus",100 μg/500 μg,$190.00/$620.00,N/A,N/A,N/A
+Z04988,"Activin RIIA/ACVR2A, His, Human/Cynomolgus",100 μg/500 μg,$190.00/$620.00,N/A,N/A,N/A
+Z04987,"Activin RIIA/ACVR2A mFc Chimera, Human/Cynomolgus",100 μg/500 μg,$170.00/$560.00,N/A,N/A,N/A
+Z04986,"Activin RIIA/ACVR2A hFc Chimera, Human/Cynomolgus",100 μg/500 μg,$170.00/$560.00,N/A,N/A,N/A
+Z04982,"ABO hFc Chimera, Human",100 μg/500 μg,$370.00/$1250.00,N/A,N/A,N/A
+Z04943,"AMHRII hFc Chimera, Cynomolgus/Rhesus macaque",100 μg/500 μg,$840.00/$2810.00,N/A,N/A,N/A
+Z04737,"AXL, His, Cynomolgus",100 μg/500 μg,$340.00/$1120.00,N/A,N/A,N/A
+Z04736,"ASGR1, His, Cynomolgus",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z04735,"APRIL/TNFSF13 Trimer, His & Avi & Flag, Cynomolgus",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z04734,"APOH, His, Cynomolgus",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z04728,"ALK-1/ACVRL1, His, Cynomolgus",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z04727,"ALCAM/CD166, His, Cynomolgus",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z04726,"AGER, His, Cynomolgus",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z04725,"AFP, His, Cynomolgus",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z04724,"Adiponectin/Acrp30, His, Cynomolgus",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z04723,"ADAM9, His, Cynomolgus",100 μg/500 μg,$390.00/$1310.00,N/A,N/A,N/A
+Z04689,"AFP, His, Canine",100 μg/500 μg,$370.00/$1250.00,N/A,N/A,N/A
+Z04648,"APLN hFc Chimera[Biotin], Avi, Mouse",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04647,"ALCAM/CD166[Biotin], His & Avi, Mouse",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04405,"Axl hFc Chimera[Biotin], Human",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04402,"APRIL/TNFSF13 Trimer  [Biotin], His & Flag, Human",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04401,"APRIL/TNFSF13 Trimer[Biotin], His & Avi & Flag, Human",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04400,"APOE3/Apolipoprotein E[Biotin], His, Human",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04399,"APOE3 [Biotin], His & Avi, Human",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04398,"ANGPTL3/Angiopoietin-like 3[Biotin], His & Avi, Human",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04397,"ANGPTL2/Angiopoietin-like 2[Biotin], His & Avi, Human",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04396,"ANGPT2/Angiopoietin-2[Biotin], His & Avi, Human",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04395,"Alkaline Phosphatase (Placental type) /ALPP [Biotin], His, Human",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04394,"Alkaline Phosphatase (Germ type) /ALPG[Biotin], His & Avi, Human",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04393,"ALCAM/CD166  [Biotin], His, Human",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04392,"ALCAM/CD166[Biotin], His & Avi, Human",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04391,"Activin RIIB/ACVR2B[Biotin], His & Avi, Human/Cynomolgus",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04390,"Activin RIIB/ACVR2B hFc Chimera[Biotin], Avi, Human/Cynomolgus",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z04388,"Activin A [Biotin], Avi, Human/Mouse/Rat",100 μg/500 μg,$750.00/$2500.00,N/A,N/A,N/A
+Z04357,"Alkaline Phosphatase (Placental type) /ALPP [Biotin], His, Cynomolgus",100 μg/500 μg,$660.00/$2190.00,N/A,N/A,N/A
+Z03814,"Activin A, Human",100 μg/500 μg,$285.00/$950.00,N/A,N/A,N/A
+Z03516,"ACE-2 Fc Chimera, Human (CHO-expressed)",100 μg/1 mg,$380.00/$2100.00,N/A,N/A,N/A
+Z03362,"Annexin V, His, Human",10 μg/50 μg,$74.00/$165.00,N/A,N/A,N/A
+Z03149,"Adiponectin, Mouse",10 μg/50 μg/1 mg,$79.00/$225.00/$2340.00,N/A,N/A,N/A
+Z03119,"Adiponectin, Human(CHO-expressed)",10 μg/50 μg/1 mg,$79.00/$225.00/$2340.00,N/A,N/A,N/A
+Z03103,"Amphiregulin, Human",10 μg/50 μg,$50.00/$100.00,N/A,N/A,N/A
