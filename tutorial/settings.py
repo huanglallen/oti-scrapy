@@ -32,18 +32,6 @@ DEFAULT_REQUEST_HEADERS = {
     "Sec-Fetch-User": "?1"
 }
 
-custom_settings = {
-    "PLAYWRIGHT_ENABLED": True,
-    "DOWNLOAD_DELAY": 5, 
-    "RANDOMIZE_DOWNLOAD_DELAY": True,
-    "CONCURRENT_REQUESTS": 1,
-    "AUTOTHROTTLE_ENABLED": True,
-    "AUTOTHROTTLE_START_DELAY": 5,
-    "AUTOTHROTTLE_MAX_DELAY": 15,
-    "AUTOTHROTTLE_TARGET_CONCURRENCY": 0.5,
-}
-
-
 DOWNLOAD_TIMEOUT = 600
 
 # Prevent early closure due to inactivity
