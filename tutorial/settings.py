@@ -52,7 +52,7 @@ DOWNLOAD_HANDLERS = {
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 PLAYWRIGHT_BROWSER_TYPE = "chromium"  # optional (chromium / firefox / webkit)
 PLAYWRIGHT_LAUNCH_OPTIONS = {
-    "headless": False,  # <-- KEY CHANGE
+    "headless": True,  # <-- KEY CHANGE
     "slow_mo": 250,     # Optional, to mimic real user
     "args": ["--start-maximized"]
 }
