@@ -1,8 +1,10 @@
 import scrapy
-from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
+from urllib.parse import urlparse, urlunparse
 
 class GenScriptSpider(scrapy.Spider):
     name = 'genscript'
+
+    # Start at letter A, page 1
     start_urls = ['https://www.genscript.com/protein-list/A/1.html']
 
     custom_settings = {
@@ -16,26 +18,28 @@ class GenScriptSpider(scrapy.Spider):
         "AUTOTHROTTLE_TARGET_CONCURRENCY": 1.0,
     }
 
+    # Alphabet letters to iterate through
+    letters = [chr(c) for c in range(ord('A'), ord('Z') + 1)]
+
     def start_requests(self):
-        for url in self.start_urls:
-            yield scrapy.Request(
-                url,
-                meta={
-                    "playwright": True,
-                    "playwright_include_page": True,
-                    "playwright_page_methods": [
-                        {
-                            "method": "route",
-                            "args": ["**/*"],
-                            "kwargs": {
-                                "handler": self.block_resources
-                            }
-                        }
-                    ],
-                    "page_num": 1
-                },
-                callback=self.parse
-            )
+        # Start with first letter A, page 1
+        start_letter = 'A'
+        start_page = 1
+        url = f'https://www.genscript.com/protein-list/{start_letter}/{start_page}.html'
+        yield scrapy.Request(
+            url,
+            meta={
+                "playwright": True,
+                "playwright_include_page": True,
+                "playwright_page_methods": [
+                    {"method": "route", "args": ["**/*"], "kwargs": {"handler": self.block_resources}}
+                ],
+                "page_num": start_page,
+                "letter_index": 0,
+                "letter": start_letter,
+            },
+            callback=self.parse
+        )
 
     def block_resources(self, route, request):
         blocked_types = {"font", "stylesheet", "image", "media", "document"}
@@ -57,31 +61,47 @@ class GenScriptSpider(scrapy.Spider):
     async def parse(self, response):
         page = response.meta["playwright_page"]
         current_page_num = response.meta.get("page_num", 1)
+        letter_index = response.meta.get("letter_index", 0)
+        letter = response.meta.get("letter", "A")
 
-        self.logger.info(f"Scraping page {current_page_num}: {response.url}")
+        self.logger.info(f"Scraping letter {letter} page {current_page_num}: {response.url}")
 
         rows = response.css('tr.gridtable-tr')
         if not rows:
-            self.logger.info(f"No products found on page {current_page_num}, stopping crawl.")
+            self.logger.info(f"No products found on letter {letter} page {current_page_num}, moving to next letter.")
             await page.close()
+
+            # Move to next letter
+            next_letter_index = letter_index + 1
+            if next_letter_index >= len(self.letters):
+                self.logger.info("Completed all letters. Spider finished.")
+                return
+
+            next_letter = self.letters[next_letter_index]
+            next_url = f'https://www.genscript.com/protein-list/{next_letter}/1.html'
+            yield scrapy.Request(
+                next_url,
+                meta={
+                    "playwright": True,
+                    "playwright_include_page": True,
+                    "playwright_page_methods": [
+                        {"method": "route", "args": ["**/*"], "kwargs": {"handler": self.block_resources}}
+                    ],
+                    "page_num": 1,
+                    "letter_index": next_letter_index,
+                    "letter": next_letter,
+                },
+                callback=self.parse,
+                dont_filter=True,
+            )
             return
 
+        # Process each product row
         for row in rows:
             catalog_no = row.css('td:nth-child(1) div::text').get(default='N/A').strip()
             name = row.css('td:nth-child(2) a::text').get(default='N/A').strip()
             link = row.css('td:nth-child(2) a::attr(href)').get()
             url = response.urljoin(link)
-
-            options = row.css('td:nth-child(4) select option')
-            sizes = []
-            prices = []
-            for opt in options:
-                size = opt.css('::text').get(default='').strip()
-                price = opt.attrib.get('price', '').strip()
-                if size:
-                    sizes.append(size)
-                if price:
-                    prices.append(price)
 
             yield scrapy.Request(
                 url,
@@ -89,51 +109,64 @@ class GenScriptSpider(scrapy.Spider):
                     "playwright": True,
                     "playwright_include_page": True,
                     "playwright_page_methods": [
-                        {
-                            "method": "route",
-                            "args": ["**/*"],
-                            "kwargs": {
-                                "handler": self.block_resources
-                            }
-                        }
+                        {"method": "route", "args": ["**/*"], "kwargs": {"handler": self.block_resources}}
                     ],
                     "catalog_no": catalog_no,
                     "name": name,
-                    "sizes": "/".join(sizes),
-                    "prices": "/".join(prices),
                 },
-                callback=self.parse_product
+                callback=self.parse_product,
             )
 
-        # Go to next page
+        # Next page for current letter
         next_page_num = current_page_num + 1
-        if next_page_num > 15:  # Optional upper limit
-            self.logger.info("Page limit exceeded.")
+        if next_page_num > 15:
+            self.logger.info(f"Reached page limit for letter {letter}, moving to next letter.")
             await page.close()
+
+            next_letter_index = letter_index + 1
+            if next_letter_index >= len(self.letters):
+                self.logger.info("Completed all letters. Spider finished.")
+                return
+
+            next_letter = self.letters[next_letter_index]
+            next_url = f'https://www.genscript.com/protein-list/{next_letter}/1.html'
+            yield scrapy.Request(
+                next_url,
+                meta={
+                    "playwright": True,
+                    "playwright_include_page": True,
+                    "playwright_page_methods": [
+                        {"method": "route", "args": ["**/*"], "kwargs": {"handler": self.block_resources}}
+                    ],
+                    "page_num": 1,
+                    "letter_index": next_letter_index,
+                    "letter": next_letter,
+                },
+                callback=self.parse,
+                dont_filter=True,
+            )
             return
 
+        # Construct next page URL for the same letter
         parsed_url = urlparse(response.url)
         parts = parsed_url.path.split("/")
         parts[-1] = f"{next_page_num}.html"
         new_path = "/".join(parts)
         next_url = urlunparse(parsed_url._replace(path=new_path))
 
-        self.logger.info(f"Going to next page: {next_url}")
+        self.logger.info(f"Going to next page {next_page_num} of letter {letter}: {next_url}")
+
         yield scrapy.Request(
             next_url,
             meta={
                 "playwright": True,
                 "playwright_include_page": True,
                 "playwright_page_methods": [
-                    {
-                        "method": "route",
-                        "args": ["**/*"],
-                        "kwargs": {
-                            "handler": self.block_resources
-                        }
-                    }
+                    {"method": "route", "args": ["**/*"], "kwargs": {"handler": self.block_resources}}
                 ],
-                "page_num": next_page_num
+                "page_num": next_page_num,
+                "letter_index": letter_index,
+                "letter": letter,
             },
             callback=self.parse,
             dont_filter=True,
@@ -145,31 +178,55 @@ class GenScriptSpider(scrapy.Spider):
         page = response.meta["playwright_page"]
         catalog_no = response.meta["catalog_no"]
         name = response.meta["name"]
-        sizes = response.meta["sizes"]
-        prices = response.meta["prices"]
 
-        def extract_tr_text(response, tr_index):
-            try:
-                td = response.css(f'tr:nth-of-type({tr_index}) td.right-value')
-                if not td:
-                    return "N/A"
-                text = td.css("::text").getall()
-                return "/".join([t.strip() for t in text if t.strip()])
-            except:
-                return "N/A"
+        def clean_text(text):
+            return text.replace('\xa0', ' ').replace('\xad', '').strip()
 
-        purity = extract_tr_text(response, 3)
-        endotoxin_level = extract_tr_text(response, 4)
-        expression_system = extract_tr_text(response, 6)
+        purity = "N/A"
+        endotoxin_level = "N/A"
+        expression_system = "N/A"
+
+        for row in response.css('table.gridtable tr'):
+            label = row.css('td:first-child b::text').get()
+            value = row.css('td.right-value::text, td.right-value *::text').getall()
+            value_text = clean_text(" ".join([v for v in value if v.strip()]))
+
+            if not label:
+                continue
+
+            label_lower = label.lower().strip()
+
+            if "purity" in label_lower:
+                purity = value_text
+            elif "endotoxin" in label_lower:
+                endotoxin_level = value_text
+            elif "expression system" in label_lower:
+                expression_system = value_text
+
+
+        sizes = []
+        prices = []
+        for box in response.css('span.size-box'):
+            size_text = box.css('label.size::text').get(default='').strip()
+            price = box.attrib.get('data-price', '').replace('$', '').strip()
+
+            if size_text:
+                sizes.append(size_text)
+            if price:
+                prices.append(price)
+
+        sizes_joined = "/".join(sizes)
+        prices_joined = "/".join(prices)
 
         await page.close()
 
         yield {
             "catalog_no": catalog_no,
             "name": name,
-            "sizes": sizes,
-            "prices": prices,
+            "sizes": sizes_joined,
+            "prices": prices_joined,
             "purity": purity,
             "endotoxin_level": endotoxin_level,
             "expression_system": expression_system,
+            "url": response.url,
         }
