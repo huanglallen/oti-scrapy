@@ -2,7 +2,7 @@ import pandas as pd
 from openpyxl import load_workbook, Workbook
 
 # File paths (change accordingly)
-csv_filename = 'genscript-protein.csv'
+csv_filename = 'genscript.csv'
 sheet_name = csv_filename.replace('.csv', '')
 excel_path = 'scrape-data-protein.xlsx'
 

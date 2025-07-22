@@ -11,7 +11,7 @@ pip install playwright
 playwright install
 python3 -m playwright install
 pip install pandas openpyxl
-
+pip install requests
 --------------------------
 
 Start/Close venv

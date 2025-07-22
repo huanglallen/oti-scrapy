@@ -4,9 +4,8 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from tutorial import signals
-
-# useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
+import requests
 
 
 class TutorialSpiderMiddleware:
@@ -101,3 +100,46 @@ class TutorialDownloaderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info("Spider opened: %s" % spider.name)
+
+class PlaywrightProxyMiddleware:
+
+    def __init__(self):
+        self.proxy = None
+        self.request_counter = 0
+        self.rotate_every = 50
+        self.failed_fetch_attempts = 0
+        self.max_fetch_attempts = 3
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls()
+
+    def process_request(self, request, spider):
+        if "playwright" in request.meta:
+            self.request_counter += 1
+
+            if not self.proxy or self.request_counter >= self.rotate_every:
+                self.proxy = self.fetch_gimmeproxy()
+                self.request_counter = 0
+
+            if self.proxy:
+                request.meta["playwright_browser_context_args"] = {
+                    "proxy": {"server": self.proxy}
+                }
+
+    def fetch_gimmeproxy(self):
+        attempts = 0
+        while attempts < self.max_fetch_attempts:
+            try:
+                response = requests.get("https://gimmeproxy.com/api/getProxy?protocol=http&supportsHttps=true&anonymityLevel=elite", timeout=10)
+                if response.status_code == 200:
+                    proxy = response.json().get("ipPort")
+                    if proxy:
+                        print(f"[Proxy] Rotated to new proxy: {proxy}")
+                        return f"http://{proxy}"
+            except Exception as e:
+                attempts += 1
+                print(f"[Proxy] Attempt {attempts}: Failed to fetch proxy: {e}")
+
+        print("[Proxy] Failed to fetch proxy after retries. Reusing last proxy if available.")
+        return self.proxy  # fallback to existing proxy
