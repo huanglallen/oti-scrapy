@@ -56,5 +56,6 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 FEED_EXPORT_ENCODING = "utf-8"
 
 DOWNLOADER_MIDDLEWARES = {
-    'myproject.middlewares.GimmeProxyMiddleware': 350,
+    'tutorial.middlewares.PlaywrightProxyMiddleware': 543,
 }
+
