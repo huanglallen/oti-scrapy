@@ -6,6 +6,7 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+import os
 
 BOT_NAME = "tutorial"
 
@@ -57,5 +58,13 @@ FEED_EXPORT_ENCODING = "utf-8"
 
 DOWNLOADER_MIDDLEWARES = {
     'tutorial.middlewares.PlaywrightProxyMiddleware': 543,
+    'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
 }
 
+LOG_ENABLED = True
+LOG_LEVEL = 'DEBUG'  # or 'INFO', 'WARNING', etc.
+LOG_FILE = os.path.join(os.path.dirname(__file__), '..', 'log.txt')
+
+LOG_ENABLED = True
+LOG_LEVEL = 'DEBUG'  # or 'INFO' to reduce verbosity
+LOG_FILE = os.path.join(os.path.dirname(__file__), '..', 'log.txt')

@@ -1,14 +1,13 @@
 import requests
-import random
+import re
+import os
 
 class PlaywrightProxyMiddleware:
     def __init__(self):
-        self.proxy = None
+        self.proxies = self.load_proxies_from_file()
+        self.proxy_index = 0
         self.request_counter = 0
-        self.rotate_every = 50
-        self.failed_fetch_attempts = 0
-        self.max_fetch_attempts = 3
-        self.proxy_pool = []
+        self.rotate_every = 30
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -18,39 +17,51 @@ class PlaywrightProxyMiddleware:
         if "playwright" in request.meta:
             self.request_counter += 1
 
-            if not self.proxy or self.request_counter >= self.rotate_every:
-                self.proxy = self.fetch_random_proxy()
+            # Rotate proxy every N requests
+            if self.request_counter >= self.rotate_every or not self.proxies:
+                self.rotate_proxy()
                 self.request_counter = 0
 
-            if self.proxy:
-                request.meta["playwright_browser_context_args"] = {
-                    "proxy": {"server": self.proxy}
-                }
+            current_proxy = self.proxies[self.proxy_index]
+            request.meta["playwright_browser_context_args"] = {
+                "proxy": {"server": current_proxy}
+            }
 
-    def fetch_random_proxy(self):
-        attempts = 0
-        while attempts < self.max_fetch_attempts:
-            try:
-                # Only fetch new proxy list if pool is empty
-                if not self.proxy_pool:
-                    print("[Proxy] Fetching new proxy list...")
-                    response = requests.get("https://www.proxy-list.download/api/v1/get?type=http", timeout=10)
-                    if response.status_code == 200:
-                        self.proxy_pool = [
-                            f"http://{proxy.strip()}"
-                            for proxy in response.text.splitlines()
-                            if proxy.strip()
-                        ]
-                        print(f"[Proxy] Loaded {len(self.proxy_pool)} proxies.")
+            # Get current IP via external check
+            ip = self.get_current_ip()
 
-                if self.proxy_pool:
-                    proxy = random.choice(self.proxy_pool)
-                    print(f"[Proxy] Rotated to: {proxy}")
-                    return proxy
+            # Get User-Agent from request headers or fallback
+            user_agent = request.headers.get("User-Agent")
+            if user_agent:
+                user_agent = user_agent.decode('utf-8')
+            else:
+                user_agent = "N/A"
 
-            except Exception as e:
-                attempts += 1
-                print(f"[Proxy] Attempt {attempts} failed: {e}")
+            if ip and spider:
+                spider.logger.info(f"[Proxy] Using proxy: {current_proxy} | External IP: {ip} | User-Agent: {user_agent}")
 
-        print("[Proxy] Failed to get proxy after retries. Reusing last known proxy.")
-        return self.proxy
+    def load_proxies_from_file(self):
+        # Look for proxy-list.txt in the project root
+        proxy_file = os.path.join(os.path.dirname(__file__), '..', 'proxy-list.txt')
+        if not os.path.exists(proxy_file):
+            raise FileNotFoundError("proxy-list.txt not found in root directory.")
+
+        with open(proxy_file, 'r') as f:
+            proxies = [f"http://{line.strip()}" for line in f if line.strip()]
+        if not proxies:
+            raise ValueError("proxy-list.txt is empty.")
+        return proxies
+
+    def rotate_proxy(self):
+        self.proxy_index = (self.proxy_index + 1) % len(self.proxies)
+
+    def get_current_ip(self):
+        try:
+            response = requests.get("http://checkip.dyndns.org", timeout=5)
+            if response.status_code == 200:
+                match = re.search(r'Current IP Address: ([\d.]+)', response.text)
+                if match:
+                    return match.group(1)
+        except Exception:
+            pass
+        return None

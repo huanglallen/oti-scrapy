@@ -25,3 +25,6 @@ example: scrapy crawl abcam -O abcam.json
 
 Run pandas:
 python3 csv_to_excel.py
+
+Proxy list:
+https://www.proxy-list.download/api/v1/get?type=http

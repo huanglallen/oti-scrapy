@@ -9,12 +9,12 @@ class GenScriptSpider(scrapy.Spider):
 
     custom_settings = {
         "PLAYWRIGHT_ENABLED": True,
-        # "DOWNLOAD_DELAY": 60,
-        "RANDOMIZE_DOWNLOAD_DELAY": False,
+        "DOWNLOAD_DELAY": 3,
+        "RANDOMIZE_DOWNLOAD_DELAY": True,
         "CONCURRENT_REQUESTS": 1,
         "AUTOTHROTTLE_ENABLED": True,
-        # "AUTOTHROTTLE_START_DELAY": 60,
-        "AUTOTHROTTLE_MAX_DELAY": 120,
+        "AUTOTHROTTLE_START_DELAY": 3,
+        "AUTOTHROTTLE_MAX_DELAY": 5,
         "AUTOTHROTTLE_TARGET_CONCURRENCY": 1.0,
     }
 
